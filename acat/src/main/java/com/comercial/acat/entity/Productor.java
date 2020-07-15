@@ -32,6 +32,7 @@ public class Productor {
 		this.claveproductor = claveproductor;
 		this.telefonoproductor = telefonoproductor;
 	}
+	
 
 	public int getIdproductor() {
 		return idproductor;
