@@ -19,7 +19,7 @@ public class ProductoService {
 	ProductoRepository productoRepository;
 	
 	public List<Producto> list(){
-		return productoRepository.findAll();  //debuelve todos los productos de la tabla
+		return productoRepository.findAll();  //devuelve todos los productos de la tabla
 	}
 	
 	public Optional<Producto> getOne(int idproducto){
@@ -34,7 +34,7 @@ public class ProductoService {
 		return productoRepository.findByCategoriaproducto(categoriaproducto); //devuelve los productos por categoria
 	}
 	
-	public void save (Producto producto) {
+	public void save (Producto producto) {//crea una entidad producto
 		productoRepository.save(producto);
 	}
 	

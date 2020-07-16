@@ -107,7 +107,7 @@ public class ProductoController {
 		producto.setEstadoproducto(productoDto.getEstadoproducto());
 		producto.setCategoriaproducto(productoDto.getCategoriaproducto());
 		productoService.save(producto);
-		return new ResponseEntity(new Mensaje("Datos del productor modificados con exito"),HttpStatus.OK);
+		return new ResponseEntity(new Mensaje("Datos del producto modificados con exito"),HttpStatus.OK);
 	
 	}
 	
