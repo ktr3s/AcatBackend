@@ -73,7 +73,7 @@ public class ProductoController {
 
 		Producto producto = new Producto(productoDto.getNombreproducto(),productoDto.getPesoproducto(),productoDto.getPrecioproducto(),productoDto.getEstadoproducto(),productoDto.getCategoriaproducto());
 		productoService.save(producto);
-		return new ResponseEntity(new Mensaje("Productor agregado con exito"),HttpStatus.OK);
+		return new ResponseEntity(new Mensaje("Producto agregado con exito"),HttpStatus.OK);
 	
 	}
 	

@@ -32,11 +32,11 @@ public class ProductorService {
 	}
 	
 	public void save (Productor productor) {
-		productorRepository.save(productor);
+		productorRepository.save(productor); //guarda el productor
 	}
 	
 	public void delete (int idproductor) {
-		productorRepository.findById(idproductor);  //elimina un productor por su Id
+		productorRepository.deleteById(idproductor);  //elimina un productor por su Id
 	}
 	
 	public boolean existsById(int idproductor) {

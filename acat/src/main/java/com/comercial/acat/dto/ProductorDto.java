@@ -21,7 +21,7 @@ public class ProductorDto {
 
 	public ProductorDto(String nombreproductor, String apellidoproductor, String emailproductor, String claveproductor,
 			String telefonoproductor) {
-		super();
+		
 		this.nombreproductor = nombreproductor;
 		this.apellidoproductor = apellidoproductor;
 		this.emailproductor = emailproductor;

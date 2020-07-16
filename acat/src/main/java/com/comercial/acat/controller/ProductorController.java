@@ -88,7 +88,6 @@ public class ProductorController {
 		if(productorService.existsByEmail(productorDto.getEmailproductor()) && productorService.getByEmail(productorDto.getEmailproductor()).get().getIdproductor() != idproductor )
 			return new ResponseEntity(new Mensaje("Usted ya tiene una cuenta con ese correo"), HttpStatus.BAD_REQUEST);
 		
-		
 		if(StringUtils.isBlank(productorDto.getNombreproductor()))
 			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		
@@ -119,8 +118,10 @@ public class ProductorController {
 	public ResponseEntity<?> delete (@PathVariable ("idproductor") int idproductor){
 		if (!productorService.existsById(idproductor))
 			return new ResponseEntity(new Mensaje("No existe"),HttpStatus.NOT_FOUND);
-		productorService.delete(idproductor);
+		productorService.delete (idproductor);
 		return new ResponseEntity(new Mensaje("Se elimino correctamente"),HttpStatus.OK);
 	}
+	
+	
 	
 }
