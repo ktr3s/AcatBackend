@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.comercial.acat.dto.Mensaje;
 import com.comercial.acat.dto.UsuarioDto;
+import com.comercial.acat.entity.Productor;
 import com.comercial.acat.entity.Usuario;
 import com.comercial.acat.service.UsuarioService;
 
@@ -34,6 +35,14 @@ public class UsuarioController {
 	public ResponseEntity<List<Usuario>> list(){
 		List<Usuario> list = usuarioService.list();
 		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping ("/detail/{idusuario}")
+	public ResponseEntity<Usuario> getById (@PathVariable("idusuario") int idusuario){
+		if (!usuarioService.existsById(idusuario))
+			return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+		Usuario usuario = usuarioService.getOne(idusuario).get();
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	
 	@PostMapping("/create")
