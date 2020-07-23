@@ -38,7 +38,7 @@ public class ProductoService {
 	}
 	
 	public void delete (int idproducto) {
-		productoRepository.deleteById(idproducto);  //elimina un producto por su Id
+		productoRepository.deleteById(idproducto);  //elimina un producto por su ID
 	}
 	
 	public boolean existsById(int idproducto) {
