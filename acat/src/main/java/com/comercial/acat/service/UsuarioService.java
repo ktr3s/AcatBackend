@@ -42,5 +42,8 @@ public class UsuarioService {
 	public boolean existsById(int idusuario) {
 		return usuarioRepository.existsById(idusuario); //devuelve true si existe un usuario buscado por id
 	}
+	public void delete (int idusuario) {
+		usuarioRepository.deleteById(idusuario);  //elimina un productor por su Id
+	}
 	
 }
