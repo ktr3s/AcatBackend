@@ -7,9 +7,9 @@ public class ProductoDto {
 	@NotBlank
 	private String nombreproducto;
 	@Min(0)
-	private int pesoproducto;
+	private float pesoproducto;
 	@Min(0)
-	private int precioproducto;
+	private float precioproducto;
 	@NotBlank
 	private String estadoproducto;
 	@NotBlank
@@ -19,7 +19,7 @@ public class ProductoDto {
 		//super();
 	}
 
-	public ProductoDto(@NotBlank String nombreproducto, @Min(0) int pesoproducto, @Min(0) int precioproducto,
+	public ProductoDto(@NotBlank String nombreproducto, @Min(0) float pesoproducto, @Min(0) float precioproducto,
 			@NotBlank String estadoproducto, @NotBlank String categoriaproducto) {
 		super();
 		this.nombreproducto = nombreproducto;
@@ -37,19 +37,19 @@ public class ProductoDto {
 		this.nombreproducto = nombreproducto;
 	}
 
-	public int getPesoproducto() {
+	public float getPesoproducto() {
 		return pesoproducto;
 	}
 
-	public void setPesoproducto(int pesoproducto) {
+	public void setPesoproducto(float pesoproducto) {
 		this.pesoproducto = pesoproducto;
 	}
 
-	public int getPrecioproducto() {
+	public float getPrecioproducto() {
 		return precioproducto;
 	}
 
-	public void setPrecioproducto(int precioproducto) {
+	public void setPrecioproducto(float precioproducto) {
 		this.precioproducto = precioproducto;
 	}
 

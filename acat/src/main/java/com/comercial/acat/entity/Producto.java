@@ -15,8 +15,8 @@ public class Producto {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idproducto;
 	private String nombreproducto;
-	private int pesoproducto;
-	private int precioproducto;
+	private float pesoproducto;
+	private float precioproducto;
 	private String estadoproducto;
 	private String categoriaproducto;
 	
@@ -24,7 +24,7 @@ public class Producto {
 		//super();
 	}
 
-	public Producto(String nombreproducto, int pesoproducto, int precioproducto, String estadoproducto,
+	public Producto(String nombreproducto, float pesoproducto, float precioproducto, String estadoproducto,
 			String categoriaproducto) {
 		super();
 		this.nombreproducto = nombreproducto;
@@ -50,19 +50,19 @@ public class Producto {
 		this.nombreproducto = nombreproducto;
 	}
 
-	public int getPesoproducto() {
+	public float getPesoproducto() {
 		return pesoproducto;
 	}
 
-	public void setPesoproducto(int pesoproducto) {
+	public void setPesoproducto(float pesoproducto) {
 		this.pesoproducto = pesoproducto;
 	}
 
-	public int getPrecioproducto() {
+	public float getPrecioproducto() {
 		return precioproducto;
 	}
 
-	public void setPrecioproducto(int precioproducto) {
+	public void setPrecioproducto(float precioproducto) {
 		this.precioproducto = precioproducto;
 	}
 
