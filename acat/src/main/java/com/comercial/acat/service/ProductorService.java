@@ -16,7 +16,7 @@ public class ProductorService {
 	ProductorRepository productorRepository;
 	
 	public List<Productor> list(){
-		return productorRepository.findAll();  //debuelve todos los productores de la tabla
+		return productorRepository.findAll();  //debuelve todos los productores de la tablas
 	}
 	
 	public Optional<Productor> getOne(int idproductor){
