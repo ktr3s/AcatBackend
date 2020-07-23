@@ -115,8 +115,8 @@ public class ProductoController {
 	public ResponseEntity<?> delete (@PathVariable ("idproducto") int idproducto){
 		if (!productoService.existsById(idproducto))
 			return new ResponseEntity(new Mensaje("No existe"),HttpStatus.NOT_FOUND);
-		productoService.delete(idproducto);
-		return new ResponseEntity(new Mensaje("Se elimino correctamente"),HttpStatus.OK);
+		productoService.delete (idproducto);
+		return new ResponseEntity(new Mensaje("Se elimino producto correctamente"),HttpStatus.OK);
 	}
 	
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.comercial.acat.entity.Producto;
-import com.comercial.acat.entity.Productor;
 import com.comercial.acat.repository.ProductoRepository;
 
 @Service
@@ -39,7 +38,7 @@ public class ProductoService {
 	}
 	
 	public void delete (int idproducto) {
-		productoRepository.findById(idproducto);  //elimina un producto por su Id
+		productoRepository.deleteById(idproducto);  //elimina un producto por su Id
 	}
 	
 	public boolean existsById(int idproducto) {
