@@ -114,9 +114,9 @@ public class ProductoController {
 	@DeleteMapping("/delete/{idproducto}")
 	public ResponseEntity<?> delete (@PathVariable ("idproducto") int idproducto){
 		if (!productoService.existsById(idproducto))
-			return new ResponseEntity(new Mensaje("No existe"),HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new Mensaje("No existe el producto"),HttpStatus.NOT_FOUND);
 		productoService.delete (idproducto);
-		return new ResponseEntity(new Mensaje("Se elimino producto correctamente"),HttpStatus.OK);
+		return new ResponseEntity(new Mensaje("Se elimino el producto correctamente"),HttpStatus.OK);
 	}
 	
 }
