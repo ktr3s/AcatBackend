@@ -1,16 +1,26 @@
 package com.comercial.acat.entity;
 
+import java.util.Optional;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.comercial.acat.enums.Categoria;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="Producto")
 
 public class Producto {
 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idproducto;
@@ -18,20 +28,28 @@ public class Producto {
 	private float pesoproducto;
 	private float precioproducto;
 	private String estadoproducto;
+	//@Enumerated(EnumType.STRING)
 	private String categoriaproducto;
+	
+	
+	@ManyToOne
+	@JsonIgnoreProperties("productos")
+	@JoinColumn(name="idproductor")
+	private Productor productor;
 	
 	public Producto() {
 		//super();
 	}
 
 	public Producto(String nombreproducto, float pesoproducto, float precioproducto, String estadoproducto,
-			String categoriaproducto) {
+			String categoriaproducto, Productor productor) {
 		super();
 		this.nombreproducto = nombreproducto;
 		this.pesoproducto = pesoproducto;
 		this.precioproducto = precioproducto;
 		this.estadoproducto = estadoproducto;
 		this.categoriaproducto = categoriaproducto;
+		this.productor = productor;
 	}
 
 	public int getIdproducto() {
@@ -81,8 +99,14 @@ public class Producto {
 	public void setCategoriaproducto(String categoriaproducto) {
 		this.categoriaproducto = categoriaproducto;
 	}
-	
-	
+
+	public Productor getProductor() {
+		return productor;
+	}
+
+	public void setProductor(Productor productor) {
+		this.productor = productor;
+	}
 	
 
 }

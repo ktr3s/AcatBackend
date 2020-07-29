@@ -15,6 +15,10 @@ public class ProductorService {
 	@Autowired
 	ProductorRepository productorRepository;
 	
+	public List<Productor> findAll(){
+		return productorRepository.findAll();  //debuelve todos los productores de la tablas
+	}
+	
 	public List<Productor> list(){
 		return productorRepository.findAll();  //debuelve todos los productores de la tablas
 	}

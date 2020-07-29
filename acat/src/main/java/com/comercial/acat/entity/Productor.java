@@ -1,9 +1,14 @@
 package com.comercial.acat.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,20 +24,25 @@ public class Productor {
 	private String claveproductor;
 	private String telefonoproductor;
 	
+	
+	//Asociacion con la tabla producto 
+	@OneToMany(mappedBy="productor", fetch = FetchType.EAGER)
+	private Set<Producto> productos = new HashSet<>();
+	
 	public Productor() {
 		
 	}
 
 	public Productor(String nombreproductor, String apellidoproductor, String emailproductor, String claveproductor,
-			String telefonoproductor) {
-		
+			String telefonoproductor, Set<Producto> productos) {
+		super();
 		this.nombreproductor = nombreproductor;
 		this.apellidoproductor = apellidoproductor;
 		this.emailproductor = emailproductor;
 		this.claveproductor = claveproductor;
 		this.telefonoproductor = telefonoproductor;
+		this.productos = productos;
 	}
-	
 
 	public int getIdproductor() {
 		return idproductor;
@@ -82,6 +92,15 @@ public class Productor {
 		this.telefonoproductor = telefonoproductor;
 	}
 
+	public Set<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(Set<Producto> productos) {
+		this.productos = productos;
+	}
+
+	
 	
 	
 	

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.comercial.acat.dto.Mensaje;
 import com.comercial.acat.dto.ProductoDto;
 import com.comercial.acat.entity.Producto;
+import com.comercial.acat.entity.Productor;
 import com.comercial.acat.service.ProductoService;
+import com.comercial.acat.service.ProductorService;
 
 
 @RestController
@@ -31,10 +33,19 @@ public class ProductoController {
 	@Autowired
 	ProductoService productoService;
 	
+	@Autowired
+	ProductorService productorService;
+	
 	@GetMapping ("/listar")
 	public ResponseEntity<List<Producto>> list(){
 		List<Producto> list = productoService.list();
 		return new ResponseEntity<List<Producto>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping ("/listar/{categoria}")
+	public ResponseEntity<List<Producto>> getByCategoria(@PathVariable("categoria") String categoria){
+		List<Producto> producto = productoService.getByCategoria(categoria);
+		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);   //*******lista productos de una categoria seleccionada
 	}
 	
 	@GetMapping ("/detail/{idproducto}")
@@ -45,6 +56,12 @@ public class ProductoController {
 		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
 	}
 	
+	/*@GetMapping ("/productosproductor/{idproductor}")
+	public ResponseEntity<List<Producto>> getByIdproductor (@PathVariable("idproductor") Productor idproductor){
+		List<Producto> producto = productoService.getByIdproductor(idproductor);
+		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);     //***********************
+	}*/
+	
 	@GetMapping ("/detailname/{nombreproducto}")
 	public ResponseEntity<Producto> getByNombre (@PathVariable("nombreproducto") String nombreproducto){
 		if (!productoService.existsByNombre(nombreproducto))
@@ -53,8 +70,12 @@ public class ProductoController {
 		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
 	}
 	
-	@PostMapping("/create")
-	public ResponseEntity<?> create (@RequestBody ProductoDto productoDto){
+	@PostMapping("/create/{idproductor}")
+	public ResponseEntity<?> create (@PathVariable ("idproductor") int idproductor,@RequestBody ProductoDto productoDto){
+		
+		if (!productorService.existsById(idproductor))
+			return new ResponseEntity(new Mensaje("El ID del productor no existe"), HttpStatus.NOT_FOUND);
+		
 		if(StringUtils.isBlank(productoDto.getNombreproducto()))
 			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		
@@ -70,8 +91,8 @@ public class ProductoController {
 		if(StringUtils.isBlank(productoDto.getCategoriaproducto()))
 			return new ResponseEntity(new Mensaje("La categoria es obligatoria"), HttpStatus.BAD_REQUEST);
 		
-
-		Producto producto = new Producto(productoDto.getNombreproducto(),productoDto.getPesoproducto(),productoDto.getPrecioproducto(),productoDto.getEstadoproducto(),productoDto.getCategoriaproducto());
+		//Productor productor = productorService.getOne(idproductor).get();
+		Producto producto = new Producto(productoDto.getNombreproducto(),productoDto.getPesoproducto(),productoDto.getPrecioproducto(),productoDto.getEstadoproducto(),productoDto.getCategoriaproducto(),productoDto.getProductor());
 		productoService.save(producto);
 		return new ResponseEntity(new Mensaje("Producto agregado con exito"),HttpStatus.OK);
 	

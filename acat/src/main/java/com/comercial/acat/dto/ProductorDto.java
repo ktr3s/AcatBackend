@@ -15,6 +15,8 @@ public class ProductorDto {
 	@NotBlank
 	private String telefonoproductor;
 	
+	
+	
 	public ProductorDto() {
 		
 	}

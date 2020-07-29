@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.comercial.acat.entity.Producto;
+import com.comercial.acat.entity.Productor;
 import com.comercial.acat.repository.ProductoRepository;
 
 @Service
@@ -21,16 +22,29 @@ public class ProductoService {
 		return productoRepository.findAll();  //devuelve todos los productos de la tabla
 	}
 	
+	
 	public Optional<Producto> getOne(int idproducto){
 		return productoRepository.findById(idproducto); //devuelve un producto filtrado por id
 	}
+	
+	/*public Optional<Producto> getByIdproductor(int idproductor){
+		return productoRepository.findById(idproductor); //devuelve los productos de un productor****************************
+	}*/
+	
+	/*public List<Producto> getByIdproductor(Productor idproductor){
+		return productoRepository.findByIdproductor(idproductor);  //
+	}*///era para mostrar los productos de un productor pero nell
 	
 	public Optional<Producto> getOne(String nombreproducto){
 		return productoRepository.findByNombreproducto(nombreproducto); //devuelve los productos por nombre
 	}
 		
-	public Optional<Producto> getByCategoria(String categoriaproducto){
+	/*public Optional<Producto> getByCategoria(String categoriaproducto){
 		return productoRepository.findByCategoriaproducto(categoriaproducto); //devuelve los productos por categoria
+	}*/
+	
+	public List<Producto> getByCategoria(String categoriaproducto){
+		return productoRepository.findByCategoriaproducto(categoriaproducto);  //devuelve todos los productos de la tabla
 	}
 	
 	public void save (Producto producto) {//crea una entidad producto
