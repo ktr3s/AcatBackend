@@ -44,7 +44,11 @@ public class ProductoService {
 	}*/
 	
 	public List<Producto> getByCategoria(String categoriaproducto){
-		return productoRepository.findByCategoriaproducto(categoriaproducto);  //devuelve todos los productos de la tabla
+		return productoRepository.findByCategoriaproducto(categoriaproducto);  //devuelve todos los productos de la tabla por categoria
+	}
+	
+	public List<Producto> getByEstado(String estadoproducto){
+		return productoRepository.findByEstadoproducto(estadoproducto);  //devuelve todos los productos de la tabla por estado
 	}
 	
 	public void save (Producto producto) {//crea una entidad producto

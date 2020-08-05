@@ -48,6 +48,12 @@ public class ProductoController {
 		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);   //*******lista productos de una categoria seleccionada
 	}
 	
+	@GetMapping ("/listar/estado/{estadoproducto}")
+	public ResponseEntity<List<Producto>> getByEstado(@PathVariable("estadoproducto") String estadoproducto){
+		List<Producto> producto = productoService.getByEstado(estadoproducto);
+		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);   //*******lista productos de una categoria seleccionada
+	}
+	
 	@GetMapping ("/detail/{idproducto}")
 	public ResponseEntity<Producto> getById (@PathVariable("idproducto") int idproducto){
 		if (!productoService.existsById(idproducto))
@@ -92,7 +98,7 @@ public class ProductoController {
 			return new ResponseEntity(new Mensaje("La categoria es obligatoria"), HttpStatus.BAD_REQUEST);
 		
 		//Productor productor = productorService.getOne(idproductor).get();
-		Producto producto = new Producto(productoDto.getNombreproducto(),productoDto.getPesoproducto(),productoDto.getPrecioproducto(),productoDto.getEstadoproducto(),productoDto.getCategoriaproducto(),productoDto.getProductor());
+		Producto producto = new Producto(productoDto.getNombreproducto(),productoDto.getPesoproducto(),productoDto.getPrecioproducto(),productoDto.getEstadoproducto(),productoDto.getCategoriaproducto(),productoDto.getDescripcionproducto(),productoDto.getProductor());
 		productoService.save(producto);
 		return new ResponseEntity(new Mensaje("Producto agregado con exito"),HttpStatus.OK);
 	
@@ -121,12 +127,16 @@ public class ProductoController {
 		if(StringUtils.isBlank(productoDto.getCategoriaproducto()))
 			return new ResponseEntity(new Mensaje("La categoria es obligatoria"), HttpStatus.BAD_REQUEST);
 		
+		if(StringUtils.isBlank(productoDto.getDescripcionproducto()))
+			return new ResponseEntity(new Mensaje("La descripcion es obligatoria"), HttpStatus.BAD_REQUEST);
+		
 		Producto producto = productoService.getOne(idproducto).get();
 		producto.setNombreproducto(productoDto.getNombreproducto());
 		producto.setPesoproducto(productoDto.getPesoproducto());
 		producto.setPrecioproducto(productoDto.getPrecioproducto());
 		producto.setEstadoproducto(productoDto.getEstadoproducto());
 		producto.setCategoriaproducto(productoDto.getCategoriaproducto());
+		producto.setDescripcionproducto(productoDto.getDescripcionproducto());
 		productoService.save(producto);
 		return new ResponseEntity(new Mensaje("Datos del producto modificados con exito"),HttpStatus.OK);
 	

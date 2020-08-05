@@ -18,6 +18,8 @@ public interface ProductoRepository extends JpaRepository <Producto, Integer>{
 	List<Producto> findByCategoriaproducto(String categoriaproducto);
 	boolean existsByCategoriaproducto(String categoriaproducto);
 	
+	List<Producto> findByEstadoproducto(String estadoproducto);
+	boolean existsByEstadoproducto(String estadoproducto);
 	/*List<Producto> findByIdproductor(Productor idproductor);
 	boolean existsByIdproductor(Productor idproductor);*/ //era para mostrar los productos de un productor pero nell
 	

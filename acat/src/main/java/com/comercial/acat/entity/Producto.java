@@ -30,7 +30,7 @@ public class Producto {
 	private String estadoproducto;
 	//@Enumerated(EnumType.STRING)
 	private String categoriaproducto;
-	
+	private String descripcionproducto;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("productos")
@@ -42,13 +42,14 @@ public class Producto {
 	}
 
 	public Producto(String nombreproducto, float pesoproducto, float precioproducto, String estadoproducto,
-			String categoriaproducto, Productor productor) {
+			String categoriaproducto,String descripcionproducto, Productor productor) {
 		super();
 		this.nombreproducto = nombreproducto;
 		this.pesoproducto = pesoproducto;
 		this.precioproducto = precioproducto;
 		this.estadoproducto = estadoproducto;
 		this.categoriaproducto = categoriaproducto;
+		this.descripcionproducto = descripcionproducto;
 		this.productor = productor;
 	}
 
@@ -107,6 +108,15 @@ public class Producto {
 	public void setProductor(Productor productor) {
 		this.productor = productor;
 	}
+
+	public String getDescripcionproducto() {
+		return descripcionproducto;
+	}
+
+	public void setDescripcionproducto(String descripcionproducto) {
+		this.descripcionproducto = descripcionproducto;
+	}
+	
 	
 
 }
