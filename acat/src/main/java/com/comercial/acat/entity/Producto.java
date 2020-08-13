@@ -1,10 +1,9 @@
 package com.comercial.acat.entity;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.comercial.acat.enums.Categoria;
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -25,24 +25,25 @@ public class Producto {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idproducto;
 	private String nombreproducto;
+	@Type(type = "uuid-char")
+	private UUID foto;
 	private float pesoproducto;
 	private float precioproducto;
 	private String estadoproducto;
-	//@Enumerated(EnumType.STRING)
 	private String categoriaproducto;
 	private String descripcionproducto;
 	
-	@ManyToOne
+	/*@ManyToOne
 	@JsonIgnoreProperties("productos")
 	@JoinColumn(name="idproductor")
-	private Productor productor;
+	private Productor productor;*/
 	
 	public Producto() {
 		//super();
 	}
 
 	public Producto(String nombreproducto, float pesoproducto, float precioproducto, String estadoproducto,
-			String categoriaproducto,String descripcionproducto, Productor productor) {
+			String categoriaproducto,String descripcionproducto /*, Productor productor*/) {
 		super();
 		this.nombreproducto = nombreproducto;
 		this.pesoproducto = pesoproducto;
@@ -50,8 +51,10 @@ public class Producto {
 		this.estadoproducto = estadoproducto;
 		this.categoriaproducto = categoriaproducto;
 		this.descripcionproducto = descripcionproducto;
-		this.productor = productor;
+		//this.productor = productor;
 	}
+
+	
 
 	public int getIdproducto() {
 		return idproducto;
@@ -101,13 +104,13 @@ public class Producto {
 		this.categoriaproducto = categoriaproducto;
 	}
 
-	public Productor getProductor() {
+	/*public Productor getProductor() {
 		return productor;
 	}
 
 	public void setProductor(Productor productor) {
 		this.productor = productor;
-	}
+	}*/
 
 	public String getDescripcionproducto() {
 		return descripcionproducto;
@@ -115,6 +118,14 @@ public class Producto {
 
 	public void setDescripcionproducto(String descripcionproducto) {
 		this.descripcionproducto = descripcionproducto;
+	}
+
+	public UUID getFoto() {
+		return foto;
+	}
+
+	public void setFoto(UUID foto) {
+		this.foto = foto;
 	}
 	
 	

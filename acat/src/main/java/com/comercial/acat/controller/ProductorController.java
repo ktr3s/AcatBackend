@@ -72,7 +72,7 @@ public class ProductorController {
 		if(productorService.existsByEmail(productorDto.getEmailproductor()))
 			return new ResponseEntity(new Mensaje("Usted ya tiene una cuenta con ese correo"), HttpStatus.BAD_REQUEST);
 		//aqui pusiste un nulllll
-		Productor productor = new Productor(productorDto.getNombreproductor(),productorDto.getApellidoproductor(),productorDto.getEmailproductor(),productorDto.getClaveproductor(),productorDto.getTelefonoproductor(), null);
+		Productor productor = new Productor(productorDto.getNombreproductor(),productorDto.getApellidoproductor(),productorDto.getEmailproductor(),productorDto.getClaveproductor(),productorDto.getTelefonoproductor());
 		productorService.save(productor);
 		return new ResponseEntity(new Mensaje("Productor agregado con exito"),HttpStatus.OK);
 	

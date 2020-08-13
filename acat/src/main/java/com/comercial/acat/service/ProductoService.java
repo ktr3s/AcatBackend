@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.comercial.acat.entity.Producto;
 import com.comercial.acat.entity.Productor;
+import com.comercial.acat.exceptions.RecordNotFoundException;
 import com.comercial.acat.repository.ProductoRepository;
 
 @Service
@@ -47,6 +48,8 @@ public class ProductoService {
 		return productoRepository.findByCategoriaproducto(categoriaproducto);  //devuelve todos los productos de la tabla por categoria
 	}
 	
+	
+	
 	public List<Producto> getByEstado(String estadoproducto){
 		return productoRepository.findByEstadoproducto(estadoproducto);  //devuelve todos los productos de la tabla por estado
 	}
@@ -67,6 +70,18 @@ public class ProductoService {
 		return productoRepository.existsByNombreproducto(nombreproducto); //devuelve true si existe un producto buscado por nombre
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////
+	public Producto createProducto(Producto producto){
+		return productoRepository.save(producto);
+	}
+	public Producto updateProducto(Producto producto) throws RecordNotFoundException {
+		Optional<Producto> recetaTemp = productoRepository.findById(producto.getIdproducto());
 	
+		if(recetaTemp.isPresent()){
+			return productoRepository.save(producto);
+		} else {
+			throw new RecordNotFoundException("Record does not exist for the given Id");
+		}
+	}
 
 }

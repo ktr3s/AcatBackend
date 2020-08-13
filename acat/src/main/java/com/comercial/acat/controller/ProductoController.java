@@ -1,9 +1,12 @@
 package com.comercial.acat.controller;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,13 +18,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+///////////////////////////
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
+///////////////////////////
 import com.comercial.acat.dto.Mensaje;
 import com.comercial.acat.dto.ProductoDto;
 import com.comercial.acat.entity.Producto;
 import com.comercial.acat.entity.Productor;
+import com.comercial.acat.exceptions.RecordNotFoundException;
+import com.comercial.acat.service.PictureService;
 import com.comercial.acat.service.ProductoService;
 import com.comercial.acat.service.ProductorService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -35,6 +46,9 @@ public class ProductoController {
 	
 	@Autowired
 	ProductorService productorService;
+	
+	@Autowired
+	PictureService picService; /////////////
 	
 	@GetMapping ("/listar")
 	public ResponseEntity<List<Producto>> list(){
@@ -51,8 +65,9 @@ public class ProductoController {
 	@GetMapping ("/listar/estado/{estadoproducto}")
 	public ResponseEntity<List<Producto>> getByEstado(@PathVariable("estadoproducto") String estadoproducto){
 		List<Producto> producto = productoService.getByEstado(estadoproducto);
-		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);   //*******lista productos de una categoria seleccionada
+		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);   //*******lista productos de estado seleccionada
 	}
+	
 	
 	@GetMapping ("/detail/{idproducto}")
 	public ResponseEntity<Producto> getById (@PathVariable("idproducto") int idproducto){
@@ -77,10 +92,10 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/create/{idproductor}")
-	public ResponseEntity<?> create (@PathVariable ("idproductor") int idproductor,@RequestBody ProductoDto productoDto){
+	public ResponseEntity<?> create (/*@PathVariable ("idproductor") int idproductor,*/@RequestBody ProductoDto productoDto){
 		
-		if (!productorService.existsById(idproductor))
-			return new ResponseEntity(new Mensaje("El ID del productor no existe"), HttpStatus.NOT_FOUND);
+		/*if (!productorService.existsById(idproductor))
+			return new ResponseEntity(new Mensaje("El ID del productor no existe"), HttpStatus.NOT_FOUND);*/
 		
 		if(StringUtils.isBlank(productoDto.getNombreproducto()))
 			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
@@ -97,8 +112,17 @@ public class ProductoController {
 		if(StringUtils.isBlank(productoDto.getCategoriaproducto()))
 			return new ResponseEntity(new Mensaje("La categoria es obligatoria"), HttpStatus.BAD_REQUEST);
 		
-		//Productor productor = productorService.getOne(idproductor).get();
-		Producto producto = new Producto(productoDto.getNombreproducto(),productoDto.getPesoproducto(),productoDto.getPrecioproducto(),productoDto.getEstadoproducto(),productoDto.getCategoriaproducto(),productoDto.getDescripcionproducto(),productoDto.getProductor());
+		if(StringUtils.isBlank(productoDto.getDescripcionproducto()))
+			return new ResponseEntity(new Mensaje("La categoria es obligatoria"), HttpStatus.BAD_REQUEST);
+		
+	
+		Producto producto = new Producto(
+				productoDto.getNombreproducto(),
+				productoDto.getPesoproducto(),
+				productoDto.getPrecioproducto(),
+				productoDto.getEstadoproducto(),
+				productoDto.getCategoriaproducto(),
+				productoDto.getDescripcionproducto());
 		productoService.save(producto);
 		return new ResponseEntity(new Mensaje("Producto agregado con exito"),HttpStatus.OK);
 	
@@ -141,6 +165,45 @@ public class ProductoController {
 		return new ResponseEntity(new Mensaje("Datos del producto modificados con exito"),HttpStatus.OK);
 	
 	}
+	
+	///////////////////////////////////////////////////////////
+	/*
+	@PostMapping("/create")
+	public ResponseEntity<Producto> createProducto(@RequestParam("producto") String s, @RequestParam("img") LinkedList<MultipartFile> file) throws JsonMappingException, JsonProcessingException{
+		
+		ObjectMapper om = new ObjectMapper();
+		Producto producto = om.readValue(s, Producto[].class)[0];		
+		
+		if (!file.isEmpty()) {
+			UUID idPic = UUID.randomUUID();
+			picService.uploadPicture(file.get(0), idPic);
+			producto.setFoto(idPic);		
+		}
+		productoService.createProducto(producto);
+		return new ResponseEntity<Producto>(producto, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	
+	@PutMapping("/update")
+	public ResponseEntity<Producto> updateProducto(@RequestParam("receta") String s, @RequestParam("img") LinkedList<MultipartFile> file) throws RecordNotFoundException, JsonMappingException, JsonProcessingException{
+		
+		ObjectMapper om = new ObjectMapper();
+		Producto producto = om.readValue(s, Producto[].class)[0];
+		
+	    if (!file.isEmpty()) {
+	    	 picService.deletePicture(producto.getFoto());
+		     UUID idPic = UUID.randomUUID();
+		     picService.uploadPicture(file.get(0), idPic);
+		     producto.setFoto(idPic);
+	     }	
+	    productoService.updateProducto(producto);		
+		return new ResponseEntity<Producto>(producto, new HttpHeaders(), HttpStatus.OK);
+	}	
+	
+	
+	
+	//////////////////////////////////////////////////////////
+	*/
 	
 	@DeleteMapping("/delete/{idproducto}")
 	public ResponseEntity<?> delete (@PathVariable ("idproducto") int idproducto){

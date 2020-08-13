@@ -21,16 +21,17 @@ public class ProductoDto {
 	@NotBlank
 	private String descripcionproducto;
 	
+	/*
 	@ManyToOne
 	@JoinColumn(name="idproductor")
-	Productor productor;
+	Productor productor;*/
 	
 	public ProductoDto() {
 		//super();
 	}
 
 	public ProductoDto(@NotBlank String nombreproducto, @Min(0) float pesoproducto, @Min(0) float precioproducto,
-			@NotBlank String estadoproducto, @NotBlank String categoriaproducto, @NotBlank String descripcionproducto, Productor productor) {
+			@NotBlank String estadoproducto, @NotBlank String categoriaproducto, @NotBlank String descripcionproducto /*, Productor productor*/) {
 		super();
 		this.nombreproducto = nombreproducto;
 		this.pesoproducto = pesoproducto;
@@ -38,7 +39,7 @@ public class ProductoDto {
 		this.estadoproducto = estadoproducto;
 		this.categoriaproducto = categoriaproducto;
 		this.descripcionproducto = descripcionproducto;
-		this.productor = productor;
+		//this.productor = productor;
 	}
 
 	public String getNombreproducto() {
@@ -80,7 +81,7 @@ public class ProductoDto {
 	public void setCategoriaproducto(String categoriaproducto) {
 		this.categoriaproducto = categoriaproducto;
 	}
-
+/*
 	public Productor getProductor() {
 		return productor;
 	}
@@ -88,7 +89,7 @@ public class ProductoDto {
 	public void setProductor(Productor productor) {
 		this.productor = productor;
 	}
-
+*/
 	public String getDescripcionproducto() {
 		return descripcionproducto;
 	}
